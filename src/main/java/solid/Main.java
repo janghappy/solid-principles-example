@@ -1,5 +1,6 @@
 package solid;
 
+import solid.ocp.OcpDemo;
 import solid.srp.SrpDemo;
 
 /**
@@ -11,6 +12,8 @@ public class Main {
         section("S - 단일 책임 원칙 (SRP)");
         SrpDemo.main(args);
 
+        section("O - 개방-폐쇄 원칙 (OCP)");
+        OcpDemo.main(args);
 
 
     }
