@@ -7,6 +7,7 @@ SOLID 다섯 원칙을 간단한 예제 코드로 실습하는 프로젝트입�
 |---|---|---|
 | `solid.srp` | 단일 책임 원칙 | 면적 계산 / 단위 변환 분리 |
 | `solid.ocp` | 개방-폐쇄 원칙 | 도형 추가 시 `AreaCalculator` 수정 여부 |
+| `solid.lsp` | 리스코프 치환 원칙 | 무료 회원의 토너먼트 주최 |
 
 ## SOLID란?
 
@@ -43,3 +44,18 @@ SOLID를 지키지 않은 코드에서 흔히 나타나는 증상은 다음과 �
 - **해결**: `Shape.area()`로 면적 계산 책임을 각 도형에 위임. `good.Triangle`은 계산기를 수정하지 않고 추가됨
 - **위반 신호**: 타입이나 enum 값에 따른 `if-else`/`switch`가 여러 곳에 반복됨
 - **도구**: 다형성, 전략(Strategy) 패턴, 템플릿 메서드 패턴, 플러그인 구조
+
+## L — 리스코프 치환 원칙 (Liskov Substitution Principle)
+
+> 상위 타입의 객체를 하위 타입의 객체로 치환해도 프로그램의 정확성이 깨지지 않아야 한다.
+
+상속은 코드 재사용이 아니라 **행위의 약속(계약)을 물려받는 것**입니다. 하위 타입은 다음을 지켜야 합니다.
+
+- 사전조건을 **강화하지 않는다** (부모보다 더 까다로운 입력을 요구하지 않음)
+- 사후조건을 **약화하지 않는다** (부모가 보장한 결과를 똑같이 보장)
+- 부모가 던지지 않는 새로운 예외를 던지지 않는다
+
+- **위반 예**: `bad.FreeMember.organizeTournament()`가 `UnsupportedOperationException`을 던짐 → `Member` 자리에 넣을 수 없음
+- **해결**: 능력별 인터페이스(`TournamentJoiner`, `TournamentOrganizer`)로 분리하고, 각 회원이 할 수 있는 일만 구현
+- **위반 신호**: 빈 오버라이드, `UnsupportedOperationException`, 호출부의 `instanceof` 분기
+- **고전 사례**: `Square extends Rectangle` — 정사각형은 수학적으로 직사각형이지만, `setWidth()`가 높이까지 바꾸면 직사각형의 계약이 깨집니다. "is-a"가 성립해도 **행위가 치환 가능한지**를 따져야 합니다.

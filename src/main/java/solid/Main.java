@@ -1,5 +1,6 @@
 package solid;
 
+import solid.lsp.LspDemo;
 import solid.ocp.OcpDemo;
 import solid.srp.SrpDemo;
 
@@ -15,6 +16,8 @@ public class Main {
         section("O - 개방-폐쇄 원칙 (OCP)");
         OcpDemo.main(args);
 
+        section("L - 리스코프 치환 원칙 (LSP)");
+        LspDemo.main(args);
 
     }
 

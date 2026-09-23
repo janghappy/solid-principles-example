@@ -1,0 +1,18 @@
+package solid.lsp.good;
+
+// 프리미엄 회원은 참가와 주최가 모두 가능하므로 TournamentJoiner와 TournamentOrganizer를 모두 구현한다.
+public class PremiumMember extends Member implements TournamentJoiner, TournamentOrganizer {
+    public PremiumMember(String name) {
+        super(name);
+    }
+
+    @Override
+    public void joinTournament() {
+        System.out.println("Premium member " + name + " joins tournament ...");
+    }
+
+    @Override
+    public void organizeTournament() {
+        System.out.println("Premium member " + name + " organizes tournament ...");
+    }
+}
