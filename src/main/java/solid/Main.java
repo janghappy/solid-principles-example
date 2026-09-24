@@ -1,5 +1,6 @@
 package solid;
 
+import solid.isp.IspDemo;
 import solid.lsp.LspDemo;
 import solid.ocp.OcpDemo;
 import solid.srp.SrpDemo;
@@ -19,6 +20,8 @@ public class Main {
         section("L - 리스코프 치환 원칙 (LSP)");
         LspDemo.main(args);
 
+        section("I - 인터페이스 분리 원칙 (ISP)");
+        IspDemo.main(args);
     }
 
     private static void section(String title) {

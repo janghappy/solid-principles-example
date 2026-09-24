@@ -8,6 +8,7 @@ SOLID 다섯 원칙을 간단한 예제 코드로 실습하는 프로젝트입�
 | `solid.srp` | 단일 책임 원칙 | 면적 계산 / 단위 변환 분리 |
 | `solid.ocp` | 개방-폐쇄 원칙 | 도형 추가 시 `AreaCalculator` 수정 여부 |
 | `solid.lsp` | 리스코프 치환 원칙 | 무료 회원의 토너먼트 주최 |
+| `solid.isp` | 인터페이스 분리 원칙 | HTTP / Socket 연결 인터페이스 분리 |
 
 ## SOLID란?
 
@@ -59,3 +60,14 @@ SOLID를 지키지 않은 코드에서 흔히 나타나는 증상은 다음과 �
 - **해결**: 능력별 인터페이스(`TournamentJoiner`, `TournamentOrganizer`)로 분리하고, 각 회원이 할 수 있는 일만 구현
 - **위반 신호**: 빈 오버라이드, `UnsupportedOperationException`, 호출부의 `instanceof` 분기
 - **고전 사례**: `Square extends Rectangle` — 정사각형은 수학적으로 직사각형이지만, `setWidth()`가 높이까지 바꾸면 직사각형의 계약이 깨집니다. "is-a"가 성립해도 **행위가 치환 가능한지**를 따져야 합니다.
+
+## I — 인터페이스 분리 원칙 (Interface Segregation Principle)
+
+> 클라이언트는 자신이 사용하지 않는 메서드에 의존하도록 강요받지 않아야 한다.
+
+하나의 범용 인터페이스보다 **역할별로 작게 나뉜 여러 인터페이스**가 낫습니다. 뚱뚱한 인터페이스는 구현체에 불필요한 구현을 강요하고, 쓰지도 않는 메서드의 변경에 클라이언트까지 영향을 받게 만듭니다.
+
+- **위반 예**: `bad.Connection`이 `socket()`/`http()`/`connect()`를 모두 선언 → `WwwPingConnection`이 `socket()`을 빈 메서드로 구현
+- **해결**: `HttpConnection`, `SocketConnection`으로 분리. 지원하지 않는 기능은 아예 노출되지 않아 컴파일 시점에 막힘
+- **위반 신호**: 빈 메서드 구현, 인터페이스 메서드 중 일부만 쓰는 클라이언트가 많음
+- **LSP와의 관계**: 인터페이스를 잘게 나누면 하위 타입이 지킬 수 없는 약속을 떠안을 일이 없어져, 자연스럽게 LSP도 지켜집니다.
