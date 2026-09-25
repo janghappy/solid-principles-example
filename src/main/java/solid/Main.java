@@ -1,5 +1,6 @@
 package solid;
 
+import solid.dip.DipDemo;
 import solid.isp.IspDemo;
 import solid.lsp.LspDemo;
 import solid.ocp.OcpDemo;
@@ -22,6 +23,9 @@ public class Main {
 
         section("I - 인터페이스 분리 원칙 (ISP)");
         IspDemo.main(args);
+
+        section("D - 의존관계 역전 원칙 (DIP)");
+        DipDemo.main(args);
     }
 
     private static void section(String title) {
